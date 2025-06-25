@@ -72,3 +72,41 @@ def plot_raw_y(data, ts = 'y2', which_plate = 'all', mutant = 'all'):
     # Ajuster l'espacement entre les graphiques
     plt.tight_layout()
     plt.show()
+    
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load your dataset (wide format: one slope column per regime)
+def plot_slope_correlation(data):
+    # Pivot to wide format: one row per mutant_ID, one column per light regime
+    pivoted = data.pivot_table(
+        index="mutant_ID",
+        columns="light_regime",
+        values="y2_slope",
+        aggfunc="mean"
+    )
+    # Define desired light regime order
+    regime_order = [
+        "20h_HL", "2h-2h",
+        "10min-10min", "5min-5min", "1min-5min", "1min-1min", "30s-30s"
+    ]
+
+    # Reorder columns after pivot
+    pivoted = pivoted[regime_order]
+
+    # Drop rows with too many missing values (optional)
+    pivoted = pivoted.dropna(thresh=3)  # keep rows with at least 3 regimes
+
+    # Compute correlation
+    corr_matrix = pivoted.corr()
+
+    # Plot heatmap
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(corr_matrix, cmap="magma", annot=True, fmt=".2f",
+                vmin=0, vmax=1, linewidths=0.5)
+    plt.title("Correlation of average y2_slope between light regimes")
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.show()
