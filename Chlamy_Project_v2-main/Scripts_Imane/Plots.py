@@ -79,7 +79,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load your dataset (wide format: one slope column per regime)
-def plot_slope_correlation(data):
+def plot_slope_correlation(data, regime_order = ["20h_HL", "2h-2h","10min-10min", "5min-5min", "1min-5min", "1min-1min", "30s-30s"]):
     # Pivot to wide format: one row per mutant_ID, one column per light regime
     pivoted = data.pivot_table(
         index="mutant_ID",
@@ -88,10 +88,6 @@ def plot_slope_correlation(data):
         aggfunc="mean"
     )
     # Define desired light regime order
-    regime_order = [
-        "20h_HL", "2h-2h",
-        "10min-10min", "5min-5min", "1min-5min", "1min-1min", "30s-30s"
-    ]
 
     # Reorder columns after pivot
     pivoted = pivoted[regime_order]
