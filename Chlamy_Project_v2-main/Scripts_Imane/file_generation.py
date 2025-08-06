@@ -6,7 +6,7 @@ import matplotlib.cm as cm
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
 
-def pdf_slopetrend(data, genes, chunk_size=50, out_prefix="Gene_Plots_Report"):
+def pdf_slopetrend(data, genes, chunk_size=60, out_prefix="Gene_Plots_Report"):
     regime_to_freq = {
         '20h_HL': 10000,                     
         '2h-2h': 120,                
