@@ -79,7 +79,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load your dataset (wide format: one slope column per regime)
-def plot_slope_correlation(data, regime_order = ["20h_HL", "2h-2h","10min-10min", "5min-5min", "1min-5min", "1min-1min", "30s-30s"]):
+def plot_slope_correlation(data, regime_order = ["20h_HL", "2h-2h","10min-10min", "5min-5min", "1min-5min", "1min-1min", "30s-30s"], phase=2):
     labels = {
     '20h_HL': 'HL',
     '2h-2h': '2h',
@@ -118,7 +118,7 @@ def plot_slope_correlation(data, regime_order = ["20h_HL", "2h-2h","10min-10min"
     ax = sns.heatmap(corr_matrix, cmap="magma", annot=True, fmt=".2f",
                  vmin=0, vmax=1, linewidths=0.5)
 
-    plt.title("Correlation of average y2_slope between light regimes in Phase 1")
+    plt.title(f"Correlation between slopes in Phase{phase}")
     ax.set_xlabel("")
     ax.set_ylabel("")
 
